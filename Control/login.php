@@ -1,9 +1,21 @@
+
+
+
 <?php
 session_start();
+include "../Model/logindb.php";
+
 $username = $password = "";
 $username_err = $password_err = "";
 
+// If already logged in, go straight to Dashboard
+if (isset($_SESSION['username'])) {
+    header("Location: Dashboard.php");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     if (empty($_POST["username"])) {
         $username_err = "Username cannot be empty";
     } else {
@@ -16,15 +28,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = trim($_POST["password"]);
     }
 
-    // Temporary validation (replace with DB check)
     if (empty($username_err) && empty($password_err)) {
-        // For demo purpose, login is always successful
-        $_SESSION["username"] = $username;
-        header("Location: admin_dashboard.php"); // Change this to your dashboard
-        exit;
+        $sql = "SELECT username, password, role FROM users WHERE username='$username'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            if (password_verify($password, $row['password'])) {
+                // Login successful, set session
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['role'] = $row['role'];
+
+                // Redirect to Dashboard
+                header("Location: Dashboard.php");
+                exit();
+            } else {
+                $password_err = "Invalid password";
+            }
+        } else {
+            $username_err = "User not found";
+        }
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,4 +1,43 @@
-<?php
+ <?php
+include "../Model/logindb.php";
+$success = $error = "";
+if ($_SERVER["REQUEST_METHOD"]=="POST")
+{
+ 
+    $username=$_POST["username"];
+    $password=$_POST["password"];
+    $email=$_POST["email"];
+    $role=$_POST["role"];
+ 
+    if (empty($username)|| empty($password)|| empty($email)|| empty($role))
+    {
+$error="Invalid do again";
+    }
+ 
+    else
+    {
+        $hassPassword= password_hash($password,PASSWORD_DEFAULT);
+ 
+        $sql= "INSERT INTO users(username,password,email,role) VALUES ('$username','$hassPassword','$email','$role') ";
+ 
+        if($conn->query($sql))
+        {
+            $success="Registration complete";
+        }
+ 
+        else{
+ 
+            $error="ERROR ". $conn->error;
+ 
+        }
+    }
+}
+ 
+ 
+?>
+ 
+ 
+ <?php
 $username = $email = $role = $password = $confirm_password = "";
 $username_err = $email_err = $role_err = $password_err = $confirm_password_err = "";
 $success_msg = "";
