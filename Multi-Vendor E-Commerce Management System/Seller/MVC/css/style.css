@@ -35,14 +35,15 @@ body {
         .card{
            
             width: 50%;
-            background: #ffffffff;
+            background-color: rgb(114, 90, 208);
             padding: 25px;
             border-radius: 12px;
+            color:white;
            
         }
          .card h4 {
             font-size: 20px;
-            color: #666;
+            color:white;
             
         }
          .card p {
@@ -52,7 +53,7 @@ body {
          .Add-Products-btn {
             
             float: right;
-            background: rgb(252, 252, 254);
+            background: #1c51ffff;
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -77,6 +78,7 @@ body {
             border-radius: 6px;
             background: #fff;
             cursor: pointer;
+            margin-inline-end: 30px;
         }
 
 
@@ -124,3 +126,4 @@ body {
             border-radius: 6px;
             cursor: pointer;
         }
+       
