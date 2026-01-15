@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL,
+    products INT DEFAULT 0,
+    price DECIMAL(10, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
