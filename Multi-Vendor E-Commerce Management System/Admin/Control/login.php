@@ -8,6 +8,14 @@ include "../Model/logindb.php";
 $username = $password = "";
 $username_err = $password_err = "";
 
+// Check if remember me cookie exists
+if (isset($_COOKIE['remember_user']) && !isset($_SESSION['username'])) {
+    $_SESSION['username'] = $_COOKIE['remember_user'];
+    $_SESSION['role'] = $_COOKIE['remember_role'];
+    header("Location: Dashboard.php");
+    exit();
+}
+
 // If already logged in, go straight to Dashboard
 if (isset($_SESSION['username'])) {
     header("Location: Dashboard.php");
@@ -29,17 +37,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($username_err) && empty($password_err)) {
-        $sql = "SELECT username, password, role FROM users WHERE username='$username'";
-        $result = $conn->query($sql);
+        $sql = "SELECT id, username, password, role FROM users WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row['password'])) {
-                // Login successful, set session
+                session_regenerate_id(true);
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['role'] = $row['role'];
 
-                // Redirect to Dashboard
+                // Handle Remember Me
+                if (isset($_POST['remember'])) {
+                    setcookie('remember_user', $row['username'], time() + (86400 * 30), "/");
+                    setcookie('remember_role', $row['role'], time() + (86400 * 30), "/");
+                } else {
+                    setcookie('remember_user', '', time() - 3600, "/");
+                    setcookie('remember_role', '', time() - 3600, "/");
+                }
+
                 header("Location: Dashboard.php");
                 exit();
             } else {
@@ -78,6 +97,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         Password:
         <input type="password" name="password" Placeholder="Enter Your Password" value="<?php echo htmlspecialchars($password); ?>">
         <?php if(!empty($password_err)) echo "<div class='error'>$password_err</div>"; ?>
+    </div>
+
+    <div style="margin: 10px 0;">
+        <label>
+            <input type="checkbox" name="remember" <?php echo isset($_COOKIE['remember_user']) ? 'checked' : ''; ?>>
+            Remember Me
+        </label>
     </div>
 
     <div id="button">
