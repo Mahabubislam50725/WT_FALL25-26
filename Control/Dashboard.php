@@ -3,7 +3,7 @@ session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['username'])) {
-    header("Location: ../View/login.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -208,7 +208,7 @@ $categoryResult = mysqli_query($conn, "SELECT * FROM categories");
                 <li class="navlist">Home</li>
                 <li class="navlist">View Order</li>
                 <li class="navlist">Sales Report</li>
-                <li><a href="../View/logout.php" class="logout-btn">Logout</a></li>
+                <li><a href="logout.php" class="logout-btn">Logout</a></li>
             </ul>
         </div>
 
