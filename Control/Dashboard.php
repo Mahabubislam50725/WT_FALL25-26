@@ -3,12 +3,12 @@ session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
 // Database connection
-require_once '../Model/logindb.php';
+include '../Model/logindb.php';
 
 $success = $error = "";
 $showSellerModal = false;
