@@ -56,3 +56,39 @@
             <a href="?add_product=1" class="btn btn-primary" style="margin-bottom: 20px; text-decoration: none; display: inline-block;">Add New Product</a>
             
 
+<div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) { 
+                                $formatted_id = str_pad($row['id'], 3, '0', STR_PAD_LEFT);
+                                echo '<tr>';
+                                echo '<td>#' . $formatted_id . '</td>';
+                                echo '<td>' . $row['product_name'] . '</td>';
+                                echo '<td>' . $row['category'] . '</td>';
+                                echo '<td>$' . $row['price'] . '</td>';
+                                echo '<td><span class="status-badge status-active">' . $row['status'] . '</span></td>';
+                                echo '<td>';
+                                echo '<a href="?edit_id=' . $row['id'] . '" class="action-btn edit-btn" style="text-decoration: none;">Edit</a>';
+                                echo '<a href="?delete_id=' . $row['id'] . '" class="action-btn delete-btn" style="text-decoration: none;" onclick="return confirm(\'Are you sure you want to delete this product?\')">Delete</a>';
+                                echo '</td>';
+                                echo '</tr>';
+                            }
+                        } else {
+                            echo '<tr><td colspan="6" style="text-align: center; padding: 30px;">No products added yet</td></tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
