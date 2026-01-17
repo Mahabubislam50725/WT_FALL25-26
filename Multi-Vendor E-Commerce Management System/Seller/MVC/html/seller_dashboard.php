@@ -140,4 +140,15 @@
                             <td>$104.97</td>
                             <td><span class="status-badge status-delivered">Delivered</span></td>
                             <td>
+                                 <button class="action-btn view-btn">View</button>
+                                <button class="action-btn edit-btn">Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
 
