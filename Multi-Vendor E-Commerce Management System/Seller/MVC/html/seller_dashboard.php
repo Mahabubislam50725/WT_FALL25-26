@@ -149,6 +149,21 @@
             </div>
         </div>
     </div>
+     <?php if ($show_profile_form): ?>
+    <!-- Profile Form -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 8px; width: 400px;">
+            <h2>My Profile</h2>
+            <form method="POST">
+                <div style="margin-bottom: 15px;">
+                    <label>Seller Name:</label><br>
+                    <input type="text" name="username" value="<?php echo htmlspecialchars($profile['username'] ?? ''); ?>" required style="width: 100%; padding: 8px; margin-top: 5px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label>Password:</label><br>
+                    <input type="password" name="password" placeholder="Leave blank to keep current password" style="width: 100%; padding: 8px; margin-top: 5px;">
+                </div>
+
 
 
 
