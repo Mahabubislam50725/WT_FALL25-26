@@ -180,6 +180,13 @@
                 <input type="hidden" name="product_id" value="<?php echo $edit_product['id']; ?>">
                 <div style="margin-bottom: 15px;">
                     <label>Product Name:</label><br>
+                    <input type="text" name="product_name" value="<?php echo htmlspecialchars($edit_product['product_name']); ?>" required style="width: 100%; padding: 8px; margin-top: 5px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label>Category:</label><br>
+                    <input type="text" name="category" value="<?php echo htmlspecialchars($edit_product['category']); ?>" required style="width: 100%; padding: 8px; margin-top: 5px;">
+                </div>
+
 
 
 
