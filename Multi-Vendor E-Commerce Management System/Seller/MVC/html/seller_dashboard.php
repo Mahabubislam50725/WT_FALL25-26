@@ -190,6 +190,15 @@
                     <label>Price:</label><br>
                     <input type="number" name="price" value="<?php echo $edit_product['price']; ?>" step="0.01" required style="width: 100%; padding: 8px; margin-top: 5px;">
                 </div>
+                <div style="text-align: right;">
+                    <a href="seller_dashboard.php" style="margin-right: 10px; text-decoration: none; color: #666;">Cancel</a>
+                    <button type="submit" name="update_product" style="background: #007bff; color: white; padding: 8px 16px; border: none; border-radius: 4px;">Update Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?php endif; ?>
+
 
 
 
