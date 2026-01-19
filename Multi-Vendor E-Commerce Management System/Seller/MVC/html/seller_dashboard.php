@@ -17,6 +17,22 @@ $show_edit_form = isset($_GET['edit_id']);
 $show_profile_form = isset($_GET['profile']);
 $edit_product = null;
 
+// Get seller_id from session or fetch from database
+if (!isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['username'])) {
+        $username = $_SESSION['username'];
+        $user_result = mysqli_query($conn, "SELECT id FROM users WHERE username='$username'");
+        if ($user_result && mysqli_num_rows($user_result) > 0) {
+            $user_data = mysqli_fetch_assoc($user_result);
+            $_SESSION['user_id'] = $user_data['id'];
+            $seller_id = $user_data['id'];
+        }
+    }
+} else {
+    $seller_id = $_SESSION['user_id'];
+}
+
+
 
 <!DOCTYPE html>
 <html lang="en">
