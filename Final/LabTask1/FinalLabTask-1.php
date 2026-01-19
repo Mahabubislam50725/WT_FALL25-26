@@ -62,6 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["name"])) {
         $nameErr = "Name cannot be empty";
     } else {
+
+
+
         $name = trim($_POST["name"]);
         if (str_word_count($name) < 2) {
             $nameErr = "Name must contain at least two words";
@@ -115,7 +118,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
 function text_input($data)
 {
-    return trim($data);
+    return tr
+    
+    
+    
+    im($data);
 }
 ?>
  
